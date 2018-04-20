@@ -5,7 +5,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Dropout
 from keras.layers.convolutional import Conv2D, MaxPooling2D
-from keras.utils.np_utils import to_categorical
+
 
 def AlexNet(num_classes = 1000):
     model = Sequential()

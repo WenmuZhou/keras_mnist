@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Time    : 18-4-13 上午9:34
 # @Author  : zhoujun
+
+import tensorflow as tf
 from tensorflow import keras
 from Net import AlexNet
-import tensorflow as tf
 from data_loader import DataIter
 from keras.backend.tensorflow_backend import set_session
 import os
@@ -29,5 +30,5 @@ train_generator = DataIter(data_list=path + '/' + label_file, image_shape=[227, 
                            classes=classes,batch_size=batch_size)
 model = AlexNet(num_classes=10)
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-model.fit_generator(train_generator, steps_per_epoch=782, epochs=1,verbose=2)
+model.fit_generator(train_generator, steps_per_epoch=782, epochs=1,verbose=1)
 model.save('alexnet.h5')

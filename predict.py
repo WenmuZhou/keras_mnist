@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Time    : 18-4-13 上午9:34
 # @Author  : zhoujun
+
+import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 import cv2
 import time
