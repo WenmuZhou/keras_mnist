@@ -37,16 +37,11 @@ class DataIter(keras.utils.Sequence):
     def __getitem__(self, idx):
         batch_x = self.image_list[idx * self.batch_size: (idx + 1) * self.batch_size]
         batch_y = self.label_list[idx * self.batch_size: (idx + 1) * self.batch_size]
-        return np.array([self.load_img(file_name) for file_name in batch_x]), np.array(batch_y)
-        #     img_path, label = line.split(' ')
-        #     img = self.load_img(img_path)
-        #     m_label = np.zeros(len(self.classes))
-        #     m_label[self.classes.index(label)] = 1
-        #     batch_x.append(img)
-        #     batch_y.append(m_label)
-        # return np.array(batch_x),np.array(batch_y)
+        batch_y = [keras.utils.to_categorical(self.classes.index(label),num_classes=len(self.classes)) for label in batch_y]
+        return np.array([self.load_img(file_name) for file_name in batch_x]), np.array(batch_y).reshape(self.batch_size,len(self.classes))
 
     def on_epoch_end(self):
-        index = np.random.shuffle(list(len(self.image_list)))
+        index = list(range(len(self.image_list)))
+        np.random.shuffle(index)
         self.image_list = self.image_list[index]
         self.label_list = self.label_list[index]
