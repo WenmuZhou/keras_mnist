@@ -4,7 +4,7 @@
 
 import numpy as np
 import cv2
-import keras
+from tensorflow.contrib.keras.api import keras
 
 class DataIter(keras.utils.Sequence):
     def __init__(self, data_list, image_shape, image_channel, classes, batch_size,shuffle=False):

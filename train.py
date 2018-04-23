@@ -30,6 +30,7 @@ train_generator = DataIter(data_list=path + '/' + label_file, image_shape=[227, 
                            classes=classes,batch_size=batch_size)
 
 model = keras.applications.resnet50.ResNet50(weights=None, classes=10)
+
 # model = AlexNet(num_classes=10)
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 import time
