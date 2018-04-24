@@ -23,8 +23,9 @@ config.gpu_options.per_process_gpu_memory_fraction = 0.3
 set_session(tf.Session(config=config))
 
 class Keras_model:
-    def __init__(self,model_path,img_shape,classes_txt = None):
+    def __init__(self,model_path,img_shape,img_channel=3,classes_txt = None):
         self.img_shape = img_shape
+        self.img_channel = img_channel
         self.model = keras.models.load_model(model_path)
         if classes_txt is not None:
             with open(classes_txt, 'r') as f:
@@ -33,8 +34,12 @@ class Keras_model:
             self.idx2label = None
 
     def predict(self,image_path,topk=1):
-        img = cv2.imread(image_path)
+        if len(img.shape) not in [2, 3] or self.img_channel not in [1, 3]:
+            raise NotImplementedError
+            
+        img = cv2.imread(image_path,0 if self.img_channel == 1 else 1)
         img = cv2.resize(img, (self.img_shape[0], self.img_shape[1]))
+        img = img.reshape([self.img_shape[0], self.img_shape[1], self.img_channel])
         img = np.expand_dims(img, axis=0)
         outputs = self.model.predict(img)
         outputs = outputs[0]
