@@ -4,8 +4,8 @@
 import os
 
 # cpu
-# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
-# os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 import tensorflow as tf
 from tensorflow import keras
@@ -15,12 +15,11 @@ import numpy as np
 from tensorflow.contrib.keras.api.keras.backend import set_session
 import cv2
 import time
-import numpy as np
 # gpu
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.3
-set_session(tf.Session(config=config))
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+# config = tf.ConfigProto()
+# config.gpu_options.per_process_gpu_memory_fraction = 0.3
+# set_session(tf.Session(config=config))
 
 class Keras_model:
     def __init__(self,model_path,img_shape,img_channel=3,classes_txt = None):
@@ -34,7 +33,7 @@ class Keras_model:
             self.idx2label = None
 
     def predict(self,image_path,topk=1):
-        if len(img.shape) not in [2, 3] or self.img_channel not in [1, 3]:
+        if len(self.img_shape) not in [2, 3] or self.img_channel not in [1, 3]:
             raise NotImplementedError
             
         img = cv2.imread(image_path,0 if self.img_channel == 1 else 1)
