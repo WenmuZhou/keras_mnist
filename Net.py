@@ -2,9 +2,9 @@
 # @Time    : 18-4-13 上午9:34
 # @Author  : zhoujun
 
-from keras.models import Sequential
-from keras.layers import Dense, Flatten, Dropout
-from keras.layers.convolutional import Conv2D, MaxPooling2D
+from tensorflow.contrib.keras.api.keras.models import Sequential
+from tensorflow.contrib.keras.api.keras.layers import Dense, Flatten, Dropout
+from tensorflow.contrib.keras.api.keras.layers import Conv2D, MaxPooling2D
 
 
 def AlexNet(num_classes = 1000):
